@@ -28,10 +28,7 @@ def get_marks(names):
     return ret_val
 
 class handler(BaseHTTPRequestHandler):
-    def do_GET(self):
-         # Send CORS headers
-        self._send_cors_headers()
-        
+    def do_GET(self):        
         # Parse URL and query parameters
         url_parts = urlparse(self.path)
         query_params = parse_qs(url_parts.query)
@@ -53,9 +50,3 @@ class handler(BaseHTTPRequestHandler):
         self.wfile.write(response_data.encode())
         
         return
-
-    def _send_cors_headers(self):
-        """Helper method to send CORS headers."""
-        self.send_header('Access-Control-Allow-Origin', '*')
-        self.send_header('Access-Control-Allow-Methods', 'GET, OPTIONS')
-        self.send_header('Access-Control-Allow-Headers', 'Content-Type')
