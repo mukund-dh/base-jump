@@ -20,7 +20,12 @@ def load_marks():
 def get_marks(names):
     """Get marks for given names, returning 0 for unknown names."""
     student_marks = load_marks()
-    return {name: student_marks.get(name, 0) for name in names}
+    ret_val = {"marks" : []}
+    for name in names:
+        for data in student_marks:
+            if data["name"] == name:
+                ret_val["marks"].append(data["marks"])
+    return ret_val
 
 class handler(BaseHTTPRequestHandler):
     def do_GET(self):
