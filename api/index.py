@@ -1,9 +1,26 @@
 from http.server import BaseHTTPRequestHandler
 from urllib.parse import parse_qs, urlparse
+import json
+import os
+
+def load_marks():
+    """Load student marks from the JSON file."""
+    # Get the absolute path to the JSON file
+    # Since index.py is in /api/, we need to go up one level to reach repo_root
+    current_dir = os.path.dirname(os.path.dirname(__file__))
+    json_path = os.path.join(current_dir, 'public', 'q-vercel-marks.json')
+    
+    try:
+        with open(json_path, 'r') as file:
+            return json.load(file)
+    except Exception as e:
+        print(f"Error loading marks: {e}")
+        return {}  # Return empty dict if file can't be loaded
 
 def get_marks(names):
     """Get marks for given names, returning 0 for unknown names."""
-    return {name: 0 for name in names}
+    student_marks = load_marks()
+    return {name: student_marks.get(name, 0) for name in names}
 
 class handler(BaseHTTPRequestHandler):
     def do_GET(self):
@@ -22,7 +39,6 @@ class handler(BaseHTTPRequestHandler):
         self.end_headers()
         
         # Convert response to JSON string
-        import json
         response_data = json.dumps(result)
         
         # Send the response
