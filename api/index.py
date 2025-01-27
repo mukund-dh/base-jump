@@ -8,7 +8,7 @@ def load_marks():
     # Get the absolute path to the JSON file
     # Since index.py is in /api/, we need to go up one level to reach repo_root
     current_dir = os.path.dirname(os.path.dirname(__file__))
-    json_path = os.path.join(current_dir, 'public', 'q-vercel-marks.json')
+    json_path = os.path.join(current_dir, 'public', 'q-vercel-python.json')
     
     try:
         with open(json_path, 'r') as file:
