@@ -1,0 +1,17 @@
+name: Random Logging Operation. Bring on the Tree Huggers.
+
+on:
+  schedule:
+    # Runs at 12:00 UTC (noon) every day
+    - cron: "0 17 * * *"
+  workflow_dispatch: # Allows manual triggering
+  
+jobs:
+  logging-op:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: 22f1000026@ds.study.iitm.ac.in
+        run: echo "Hello, world!"
