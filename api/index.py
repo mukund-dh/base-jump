@@ -41,6 +41,9 @@ class handler(BaseHTTPRequestHandler):
         
         self.send_response(200)
         self.send_header('Content-type', 'application/json')
+        self.send_header('Access-Control-Allow-Origin', '*')
+        self.send_header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+        self.send_header('Access-Control-Allow-Headers', 'Authorization, Content-Type, X-Requested-With')
         self.end_headers()
         
         # Convert response to JSON string
@@ -50,3 +53,10 @@ class handler(BaseHTTPRequestHandler):
         self.wfile.write(response_data.encode())
         
         return
+
+    def do_OPTIONS(self):
+        self.send_response(200)
+        self.send_header('Access-Control-Allow-Origin', '*')
+        self.send_header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+        self.send_header('Access-Control-Allow-Headers', 'Authorization, Content-Type, X-Requested-With')
+        self.end_headers()
